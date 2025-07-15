@@ -1,0 +1,93 @@
+[
+  {
+    "id": 1,
+    "position": "Cover Supervisor (Administrator)",
+    "company": "Outwood Academy Riverside, United Kingdom",
+    "period": "January 2025 - Present",
+    "responsibilities": [
+      "Supervised classes across computing (Python), IT, and mathematics, delivering pre-planned lessons while adapting content in real time to suit varying levels of understanding",
+      "Designed and implemented tailored learning strategies to bridge knowledge gaps, using a structured, diagnostic approach",
+      "Delivered engaging lessons and maintained student focus by breaking down complex concepts into clear, accessible steps",
+      "Managed the daily cover rota, coordinating teacher absences and deploying staff efficiently",
+      "Supported students in using educational technologies, including coding platforms and productivity tools"
+    ]
+  },
+  {
+    "id": 2,
+    "position": "Teacher (Supply/Cover Supervisor)",
+    "company": "Connex Education, United Kingdom",
+    "period": "May 2023 - January 2025",
+    "responsibilities": [
+      "Delivered clear and engaging explanations of key concepts in Python, computing, and mathematics",
+      "Designed and implemented tailored learning strategies to support individual and group progress",
+      "Successfully managed multiple classrooms across a range of subjects and year groups",
+      "Supported students in developing problem-solving skills and exam techniques",
+      "Assessed student engagement and learning during cover lessons, using initiative and reflective practice"
+    ]
+  },
+  {
+    "id": 3,
+    "position": "Business Analyst (Data Science)",
+    "company": "Impact Fundry, United Kingdom",
+    "period": "October 2022 - May 2023",
+    "responsibilities": [
+      "Analyzed business processes and goals to drive efficiencies through technology and data, increasing sales by 20%",
+      "Managed Business Intelligence workflow using Power BI, ensuring 100% task completion accuracy and timeliness",
+      "Designed and deployed internal tools powered by LLMs (OpenAI/GPT-based)",
+      "Built and maintained Retrieval-Augmented Generation (RAG) pipelines using FAISS and SentenceTransformers",
+      "Prepared clear documentation to communicate business requirements and technical specifications"
+    ]
+  },
+  {
+    "id": 4,
+    "position": "Data Analyst",
+    "company": "Turing, Palo Alto, California",
+    "period": "March 2022 - September 2022",
+    "responsibilities": [
+      "Developed Directed Acyclic Graphs (DAGs) on Apache Airflow, reducing task scheduling time by 35%",
+      "Implemented a real-time SLA alert system using Slack webhooks, improving monitoring efficiency by 40%",
+      "Conducted complex data analysis using SQL, improving query performance by 25%",
+      "Designed and implemented full-stack solutions, reducing development time by 20%",
+      "Maintained BI dashboards and reports in Power BI, providing real-time visual interfaces for key business metrics"
+    ]
+  },
+  {
+    "id": 5,
+    "position": "Machine Learning Engineer",
+    "company": "Law Pavilion, Lagos, Nigeria",
+    "period": "December 2020 - February 2022",
+    "responsibilities": [
+      "Spearheaded the development of a document summarization platform using Hugging Face, improving document processing speed by 40%",
+      "Led the development of a Speech-To-Text model for courtroom applications, achieving 90% accuracy",
+      "Maintained data standards through validation, verification, and quality assurance, ensuring 99% accuracy in reporting",
+      "Developed a model for recognizing laws and cases within documents using Prodigy, improving accuracy by 30%",
+      "Engineered efficient APIs using FastAPI for seamless data interaction, increasing system integration efficiency by 20%"
+    ]
+  },
+  {
+    "id": 6,
+    "position": "Software Engineer",
+    "company": "PwC, Lagos, Nigeria",
+    "period": "July 2020 - December 2020",
+    "responsibilities": [
+      "Managed stakeholder expectations and communicated results effectively, achieving a 95% satisfaction rate",
+      "Generated actionable insights, leading to a 15% improvement in business processes",
+      "Gained expertise in Data Lifecycle Management (DLM), contributing to a 20% improvement in data handling",
+      "Developed knowledge of Data Protection and Data Governance, ensuring compliance with regulations",
+      "Managed critical business tasks from inception to launch, achieving 100% project completion rate within budget"
+    ]
+  },
+  {
+    "id": 7,
+    "position": "Artificial Intelligence Engineer",
+    "company": "Fundall, Lagos, Nigeria",
+    "period": "April 2020 - July 2020",
+    "responsibilities": [
+      "Created a conversational chatbot using Python, increasing user engagement by 30%",
+      "Developed endpoints for a categorizer model, automating item categorization with 95% accuracy",
+      "Implemented an OCR model for scanning receipts, achieving 90% accuracy in item categorization",
+      "Built a sentiment analysis model using Twitter data, improving customer sentiment analysis accuracy by 25%",
+      "Created detailed visual reports in Power BI to present sentiment analysis results to stakeholders"
+    ]
+  }
+]

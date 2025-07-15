@@ -1,0 +1,29 @@
+{
+  "name": "Al-Ameen Abdulkareem",
+  "title": "Analyst | Machine Learning Engineer | Educator| AI Specialist",
+  "email": "abdulkareemalameen18@gmail.com",
+  "phone": "+44 (0) 7405681617",
+  "location": "E16 2PJ London, United Kingdom",
+  "about": "Results-driven software developer with expertise in data science, cloud technologies, and Python-based solutions. Alongside my technical work, I’ve taught computing, Python, and mathematics, empowering learners with practical skills and confidence.",
+  "summary": "I’m a data-driven professional with a Master’s degree in Computer Science (Distinction) from Teesside University, combining strong technical expertise with practical experience across analytics, software development, and problem-solving. My strengths lie in data analysis, business intelligence, and machine learning. I’m highly proficient in tools like Python, SQL, Power BI, and Excel, with a proven ability to extract meaningful insights, model data, and communicate findings that support informed decision-making. I enjoy turning complexity into clarity, and thrive when creating impactful, user-oriented solutions. While I’ve supported learners and early-career professionals in educational settings, my core interest lies in leveraging data to drive innovation and efficiency. I’m particularly motivated by roles that challenge my analytical thinking and allow me to contribute to high-impact, cross-functional teams.",
+  "social": {
+    "linkedin": "https://linkedin.com/in/al-ameen-abdulkareem-1524ba123",
+    "github": "https://github.com/triplemeen"
+  },
+  "resume": "/resume.pdf",
+  "interests": ["Cooking", "Basketball", "Video making and editing"],
+  "referees": [
+    {
+      "name": "Emma Hugill",
+      "position": "Senior Secondary Consultant - Connex Education",
+      "phone": "01642 573 553",
+      "email": "emma.hugill@connex-education.com"
+    },
+    {
+      "name": "William Oseland",
+      "position": "Vice Principal - Outwood Academy Riverside",
+      "phone": "07929 143780",
+      "email": "w.oseland@riverside.outwood.com"
+    }
+  ]
+}

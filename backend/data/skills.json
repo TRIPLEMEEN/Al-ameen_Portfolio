@@ -1,0 +1,127 @@
+{
+  "technical": [
+    { "name": "Python", "level": 90 },
+    { "name": "SQL", "level": 85 },
+    { "name": "Machine Learning", "level": 88 },
+    { "name": "Data Analysis", "level": 90 },
+    { "name": "Data Visualization", "level": 88 },
+    { "name": "Excel", "level": 90 },
+    { "name": "Cloud Computing", "level": 80 },
+    { "name": "Big Data", "level": 78 },
+    { "name": "Deep Learning", "level": 82 },
+    { "name": "Natural Language Processing", "level": 85 },
+    { "name": "Computer Vision", "level": 80 }
+  ],
+  "programming_languages": [
+    { "name": "Python", "level": 90 },
+    { "name": "SQL", "level": 88 },
+    { "name": "R", "level": 75 },
+    { "name": "JavaScript", "level": 80 },
+    { "name": "TypeScript", "level": 75 },
+    { "name": "HTML/CSS", "level": 85 }
+  ],
+  "data_science": [
+    { "name": "Pandas", "level": 92 },
+    { "name": "NumPy", "level": 90 },
+    { "name": "Scikit-learn", "level": 88 },
+    { "name": "TensorFlow", "level": 82 },
+    { "name": "PyTorch", "level": 85 },
+    { "name": "NLTK", "level": 80 },
+    { "name": "SpaCy", "level": 82 },
+    { "name": "OpenCV", "level": 78 },
+    { "name": "Matplotlib", "level": 85 },
+    { "name": "Seaborn", "level": 85 },
+    { "name": "Plotly", "level": 82 }
+  ],
+  "mlops": [
+    { "name": "MLflow", "level": 80 },
+    { "name": "DVC", "level": 78 },
+    { "name": "Kubeflow", "level": 75 },
+    { "name": "MLflow Tracking", "level": 82 }
+  ],
+  "cloud_platforms": [
+    { "name": "AWS (S3, EC2, Lambda, SageMaker)", "level": 80 },
+    { "name": "Azure", "level": 75 },
+    { "name": "Google Cloud", "level": 70 },
+    { "name": "Docker", "level": 82 },
+    { "name": "Kubernetes", "level": 75 }
+  ],
+  "data_engineering": [
+    { "name": "Apache Spark", "level": 80 },
+    { "name": "Apache Kafka", "level": 75 },
+    { "name": "Apache Airflow", "level": 78 },
+    { "name": "ETL Pipelines", "level": 85 },
+    { "name": "Data Warehousing", "level": 80 }
+  ],
+  "databases": [
+    { "name": "PostgreSQL", "level": 85 },
+    { "name": "MongoDB", "level": 80 },
+    { "name": "MySQL", "level": 82 },
+    { "name": "Redis", "level": 75 },
+    { "name": "Elasticsearch", "level": 72 }
+  ],
+  "data_visualization": [
+    { "name": "Power BI", "level": 85 },
+    { "name": "Tableau", "level": 80 },
+    { "name": "Matplotlib", "level": 85 },
+    { "name": "Seaborn", "level": 85 },
+    { "name": "Plotly", "level": 82 }
+  ],
+  "devops": [
+    { "name": "Git", "level": 88 },
+    { "name": "GitHub Actions", "level": 80 },
+    { "name": "CI/CD", "level": 82 },
+    { "name": "Terraform", "level": 75 },
+    { "name": "Ansible", "level": 70 }
+  ],
+  "software_development": [
+    { "name": "RESTful APIs", "level": 85 },
+    { "name": "Microservices", "level": 80 },
+    { "name": "Object-Oriented Design", "level": 85 },
+    { "name": "Design Patterns", "level": 82 },
+    { "name": "Unit Testing", "level": 85 }
+  ],
+  "methodologies": [
+    { "name": "Agile/Scrum", "level": 88 },
+    { "name": "Data Modeling", "level": 85 },
+    { "name": "Feature Engineering", "level": 88 },
+    { "name": "Model Deployment", "level": 82 },
+    { "name": "A/B Testing", "level": 80 }
+  ],
+  "development_tools": [
+    { "name": "Git", "level": 88 },
+    { "name": "GitHub", "level": 85 },
+    { "name": "VS Code", "level": 85 },
+    { "name": "Jupyter Notebook", "level": 85 },
+    { "name": "Postman", "level": 80 },
+    { "name": "Prodigy", "level": 75 }
+  ],
+  "soft_skills": [
+    "Problem Solving",
+    "Team Leadership",
+    "Project Management",
+    "Communication",
+    "Mentoring",
+    "Agile Methodologies",
+    "Data Analysis",
+    "Business Intelligence",
+    "Technical Documentation",
+    "Stakeholder Management"
+  ],
+  "prompt_engineering": [
+    "Zero-shot Prompting",
+    "Few-shot Prompting",
+    "Instruction Tuning",
+    "Prompt Evaluation"
+  ],
+  "tools": [
+    "Jupyter Notebook",
+    "Tableau",
+    "Power BI",
+    "Docker",
+    "AWS",
+    "Google Cloud",
+    "GitHub",
+    "VS Code"
+  ]
+}
