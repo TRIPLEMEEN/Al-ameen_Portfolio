@@ -1,4 +1,30 @@
-const API_BASE_URL = 'http://localhost:5002/api';
+// Get the API URL from environment variables or use the default local development URL
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5002/api';
+
+// Helper function to handle fetch requests with better error handling
+async function fetchData<T>(url: string, options?: RequestInit): Promise<T> {
+  try {
+    const response = await fetch(url, {
+      ...options,
+      headers: {
+        'Content-Type': 'application/json',
+        ...options?.headers,
+      },
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(
+        errorData.message || `HTTP error! status: ${response.status}`
+      );
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error(`API request failed for ${url}:`, error);
+    throw error;
+  }
+}
 
 export interface Project {
   id: number;
@@ -63,6 +89,7 @@ export interface ProfileData {
   phone: string;
   location: string;
   about: string;
+  summary?: string;
   social: {
     github: string;
     linkedin: string;
@@ -76,11 +103,7 @@ const api = {
   // Profile
   getProfile: async (): Promise<ProfileData> => {
     try {
-      const response = await fetch(`${API_BASE_URL}/profile`);
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const data = await response.json();
+      const data = await fetchData<ProfileData>(`${API_BASE_URL}/profile`);
       return {
         name: data.name || '',
         title: data.title || '',
@@ -91,10 +114,11 @@ const api = {
         summary: data.summary || '',
         social: {
           linkedin: data.social?.linkedin || '',
-          github: data.social?.github || ''
+          github: data.social?.github || '',
+          twitter: data.social?.twitter || ''
         },
         resume: data.resume || '',
-        interests: data.interests || []
+        interests: Array.isArray(data.interests) ? data.interests : []
       };
     } catch (error) {
       console.error('Error fetching profile:', error);
@@ -106,10 +130,11 @@ const api = {
         phone: '+44 (0) 7405681617',
         location: 'E16 2PJ London, United Kingdom',
         about: 'Results-driven software developer with expertise in data science, cloud technologies, and Python-based solutions.',
-        summary: 'Data-driven professional with a Master’s degree in Computer Science (Distinction) from Teesside University.',
+        summary: 'Data-driven professional with a Master\'s degree in Computer Science (Distinction) from Teesside University.',
         social: {
           linkedin: 'https://linkedin.com/in/al-ameen-abdulkareem-1524ba123',
-          github: 'https://github.com/triplemeen'
+          github: 'https://github.com/triplemeen',
+          twitter: ''
         },
         resume: '/resume.pdf',
         interests: ['Cooking', 'Basketball', 'Video making and editing']
@@ -119,56 +144,37 @@ const api = {
 
   // Projects
   getProjects: async (): Promise<Project[]> => {
-    const response = await fetch(`${API_BASE_URL}/projects`);
-    if (!response.ok) {
-      throw new Error('Failed to fetch projects');
-    }
-    return response.json();
+    return fetchData<Project[]>(`${API_BASE_URL}/projects`);
   },
 
   // Experience
   getExperience: async (): Promise<Experience[]> => {
-    const response = await fetch(`${API_BASE_URL}/experience`);
-    if (!response.ok) {
-      throw new Error('Failed to fetch experience');
-    }
-    return response.json();
+    return fetchData<Experience[]>(`${API_BASE_URL}/experience`);
   },
 
   // Education
   getEducation: async (): Promise<Education[]> => {
-    const response = await fetch(`${API_BASE_URL}/education`);
-    if (!response.ok) {
-      throw new Error('Failed to fetch education');
-    }
-    return response.json();
+    return fetchData<Education[]>(`${API_BASE_URL}/education`);
   },
 
   // Skills
   getSkills: async (): Promise<SkillsData> => {
-    const response = await fetch(`${API_BASE_URL}/skills`);
-    if (!response.ok) {
-      throw new Error('Failed to fetch skills');
-    }
-    return response.json();
+    const data = await fetchData<SkillsData>(`${API_BASE_URL}/skills`);
+    return {
+      technical: Array.isArray(data?.technical) ? data.technical : [],
+      soft: Array.isArray(data?.soft) ? data.soft : [],
+      tools: Array.isArray(data?.tools) ? data.tools : []
+    };
   },
 
   // Testimonials
   getTestimonials: async (): Promise<Testimonial[]> => {
-    const response = await fetch(`${API_BASE_URL}/testimonials`);
-    if (!response.ok) {
-      throw new Error('Failed to fetch testimonials');
-    }
-    return response.json();
+    return fetchData<Testimonial[]>(`${API_BASE_URL}/testimonials`);
   },
 
   // Blogs
   getBlogs: async (): Promise<Blog[]> => {
-    const response = await fetch(`${API_BASE_URL}/blogs`);
-    if (!response.ok) {
-      throw new Error('Failed to fetch blogs');
-    }
-    return response.json();
+    return fetchData<Blog[]>(`${API_BASE_URL}/blogs`);
   },
 
   // Contact Form
@@ -184,17 +190,11 @@ const api = {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          ...formData,
-          // Add any additional fields required by your backend
-          to: 'abdulkareemalameen18@gmail.com', // Your email address
-          from: formData.email,
-          text: `Name: ${formData.name}\nEmail: ${formData.email}\n\n${formData.message}`
-        }),
+        body: JSON.stringify(formData),
       });
 
       if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
+        const errorData = await response.json();
         throw new Error(errorData.message || 'Failed to send message');
       }
 
