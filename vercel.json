@@ -5,17 +5,24 @@
       "src": "package.json",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "dist"
+        "distDir": "dist",
+        "outputDirectory": "dist"  
       }
     }
   ],
   "routes": [
+    { "handle": "filesystem" },
+    {
+      "src": "/api/(.*)",
+      "dest": "https://al-ameen-portfolio.onrender.com/api/$1",
+      "status": 308
+    },
     {
       "src": "/(.*)",
       "dest": "/index.html"
     }
   ],
   "env": {
-    "VITE_API_URL": "https://al-ameen-portfolio.onrender.com/api"
+    "VITE_API_URL": "https://al-ameen-portfolio.onrender.com"
   }
 }
