@@ -8,8 +8,11 @@ def create_app():
     r"/*": {
         "origins": [
             "http://localhost:3000",  # For local development
-            "https://al-ameen-portfolio-armrh83fj.vercel.app"  # Your Vercel frontend URL
-        ]
+                "https://al-ameen-portfolio.vercel.app",  # Your Vercel domain
+                "https://al-ameen-portfolio-q8ltlltsw.vercel.app"  # All preview deployments
+            ],
+            "methods": ["GET", "POST", "OPTIONS"],
+            "allow_headers": ["Content-Type", "Authorization"]
     }
 })
     
