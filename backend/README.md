@@ -1,6 +1,6 @@
-# Portfolio Backend (Flask)
+# Portfolio Backend
 
-This is the Flask backend for the portfolio website. It serves JSON data and handles contact form submissions.
+This is the Flask backend for the portfolio website.
 
 ## Setup
 
@@ -15,11 +15,43 @@ This is the Flask backend for the portfolio website. It serves JSON data and han
    pip install -r requirements.txt
    ```
 
-3. Start the server:
+3. Set up environment variables:
    ```bash
-   python app.py
+   cp .env.example .env
+   # Edit .env with your configuration
    ```
 
-## API Documentation
+## Running the Server
 
-See the main README.md for API endpoint documentation.
+```bash
+# Development
+flask run --port 5001
+
+# Or directly with Python
+python run.py
+```
+
+## Project Structure
+
+```
+backend/
+├── app/
+│   ├── __init__.py     # Flask app factory
+│   └── routes.py       # API routes
+├── static/             # Static files
+├── templates/          # HTML templates (if needed)
+├── .env.example        # Example environment variables
+├── requirements.txt    # Python dependencies
+└── run.py             # Application entry point
+```
+
+## API Endpoints
+
+- `GET /` - Welcome message
+- `GET /api/projects` - List of projects
+- `GET /api/experience` - Work experience
+
+## Development
+
+- The server runs on `http://localhost:5001` by default
+- Make sure to update CORS settings in production
