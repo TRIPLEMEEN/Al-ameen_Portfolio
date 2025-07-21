@@ -45,6 +45,14 @@ def load_json_data(filename):
             return json.load(f)
     except FileNotFoundError:
         return []
+@main.route('/download-resume')
+def download_resume():
+    return send_from_directory(
+        current_app.static_folder,
+        'al-ameen_01_resume.pdf',
+        as_attachment=True,
+        download_name='AL-AMEEN_ABDULKAREEM_RESUME.pdf'  # This will be the filename when downloaded
+    )
 
 @main.route('/')
 def home():
@@ -506,3 +514,4 @@ def contact():
             'error': 'An error occurred while processing your message. Please try again later.',
             'status': 'error'
         }), 500
+    

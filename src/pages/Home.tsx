@@ -95,8 +95,8 @@ const Home = () => {
                 Contact Me
               </button>
               <a
-                href={profile.resume}
-                download
+                href={`${import.meta.env.VITE_API_URL}/download-resume`}
+                download="AL-AMEEN_ABDULKAREEM_RESUME.pdf"              
                 className="px-6 py-3 border border-primary-600 text-primary-600 dark:text-primary-400 rounded-lg hover:bg-primary-50 dark:hover:bg-gray-800 transition-colors inline-flex items-center gap-2 font-medium"
               >
                 <FaFileDownload /> Download CV

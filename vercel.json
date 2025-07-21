@@ -16,6 +16,6 @@
     }
   ],
   "env": {
-    "VITE_API_URL": "https://your-backend-domain.com/api"
+    "VITE_API_URL": "https://al-ameen-portfolio.onrender.com/api"
   }
 }

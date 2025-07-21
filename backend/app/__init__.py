@@ -4,7 +4,14 @@ import os
 
 def create_app():
     app = Flask(__name__, static_folder='../static')
-    CORS(app)
+    CORS(app, resources={
+    r"/*": {
+        "origins": [
+            "http://localhost:3000",  # For local development
+            "https://al-ameen-portfolio-armrh83fj.vercel.app"  # Your Vercel frontend URL
+        ]
+    }
+})
     
     # Configuration
     app.config['SECRET_KEY'] = 'your-secret-key-here'  # Change this in production
