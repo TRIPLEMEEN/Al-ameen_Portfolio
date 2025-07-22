@@ -1,114 +1,85 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
-import BlogPostCard from '../components/blog/BlogPostCard';
-import type { Blog } from '../types';
-import api from '../services/api';
+import { format } from 'date-fns';
+import { FaLinkedin } from 'react-icons/fa';
 
-const Blog: React.FC = () => {
-  const [posts, setPosts] = useState<Blog[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [category, setCategory] = useState<string>('all');
+interface BlogPostCardProps {
+  id: number;
+  title: string;
+  content: string;
+  date: string;
+  image: string;
+  link: string;
+  tags: string[];
+}
 
-  useEffect(() => {
-    const fetchBlogPosts = async () => {
-      try {
-        const data = await api.getBlogs();
-        if (data && Array.isArray(data)) {
-          setPosts(data);
-          setLoading(false);
-        } else {
-          throw new Error('Invalid blog posts data format');
-        }
-      } catch (err) {
-        console.error('Failed to fetch blog posts:', err);
-        setError(err instanceof Error ? err.message : 'Failed to load blog posts. Please try again later.');
-        setLoading(false);
-      }
-    };
-
-    fetchBlogPosts();
-  }, []);
-
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-[calc(100vh-200px)]">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500"></div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="flex items-center justify-center min-h-[calc(100vh-200px)]">
-        <div className="text-center">
-          <p className="text-red-500 mb-4">{error}</p>
-          <button
-            onClick={() => window.location.reload()}
-            className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors"
-          >
-            Retry
-          </button>
-        </div>
-      </div>
-    );
-  }
-
-  const uniqueCategories = Array.from(new Set(posts.flatMap(post => post.tags)));
-  const filteredPosts = posts.filter(post => category === 'all' || post.tags.includes(category));
+const BlogPostCard: React.FC<BlogPostCardProps> = ({
+  id,
+  title,
+  content,
+  date,
+  image,
+  link,
+  tags,
+}) => {
+  const formattedDate = format(new Date(date), 'MMM dd, yyyy');
 
   return (
-    <div className="container mx-auto px-4 py-24">
-      <h1 className="text-3xl font-bold text-center mb-12">
-        My <span className="text-indigo-600 dark:text-indigo-400">Blog Posts</span>
-      </h1>
-
-      <div className="mb-8">
-        <select
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
-          className="px-4 py-2 border rounded-md bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300"
-        >
-          <option value="all">All Categories</option>
-          {uniqueCategories.map((cat) => (
-            <option key={cat} value={cat}>{cat}</option>
-          ))}
-        </select>
+    <motion.article
+      className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 flex flex-col h-full"
+      whileHover={{ y: -5 }}
+    >
+      <div className="relative h-48 flex-shrink-0">
+        <div className="absolute inset-0 bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-500"></div>
+        </div>
+        <div 
+          style={{ 
+            backgroundImage: `url(${image})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            width: '100%',
+            height: '100%'
+          }}
+          className="absolute inset-0"
+          onLoad={(e: React.SyntheticEvent) => {
+            const container = (e.target as HTMLElement).parentElement;
+            if (container) {
+              container.querySelector('.bg-gray-200')?.remove();
+            }
+          }}
+        />
+        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
+          <h2 className="text-xl font-semibold text-white">{title}</h2>
+          <p className="text-gray-300 line-clamp-2">{content}</p>
+        </div>
       </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {filteredPosts.length > 0 ? (
-          filteredPosts.map((post, index) => (
-            <motion.div
-              key={post.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: index * 0.1 }}
+      <div className="p-6 flex flex-col flex-grow">
+        <p className="text-gray-600 dark:text-gray-400 mb-2">{formattedDate}</p>
+        <div className="flex flex-wrap gap-2 mb-4">
+          {tags.map((tag) => (
+            <span
+              key={tag}
+              className="px-2 py-1 bg-indigo-100 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-400 rounded-full text-sm"
             >
-              <BlogPostCard
-                id={post.id}
-                title={post.title}
-                content={post.content}
-                date={post.date}
-                image={post.image}
-                link={post.link}
-                tags={post.tags}
-              />
-            </motion.div>
-          ))
-        ) : (
-          <div className="text-center py-12">
-            <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
-              No posts found in this category
-            </h3>
-            <p className="text-gray-600 dark:text-gray-400">
-              Check back later for new content!
-            </p>
-          </div>
-        )}
+              {tag}
+            </span>
+          ))}
+        </div>
+        <div className="mt-auto">
+          <a
+            href={link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors duration-300"
+          >
+            <FaLinkedin className="mr-2" />
+            View on LinkedIn
+          </a>
+        </div>
       </div>
-    </div>
+    </motion.article>
   );
 };
 
-export default Blog;
+export default BlogPostCard;

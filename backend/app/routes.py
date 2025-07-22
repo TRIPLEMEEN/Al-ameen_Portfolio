@@ -4,6 +4,8 @@ import json
 from datetime import datetime
 import requests
 from urllib.parse import urlparse, unquote
+from flask_mail import Message
+from . import mail
 
 main = Blueprint('main', __name__)
 
@@ -443,7 +445,7 @@ def get_blogs():
             'read_time': '5 min read',
             'tags': ['Data Analysis', 'PowerBI', 'Sports Analytics', 'Data Visualization'],
             'image': '/images/nba.jpeg',
-            'url': 'https://www.linkedin.com/feed/update/urn:li:activity:7123456789012345678/'  
+            'url': 'https://www.linkedin.com/posts/al-ameen-abdulkareem-1524ba123_teessideuniversity-activity-7111708179209596928-yndt?utm_source=share&utm_medium=member_desktop&rcm=ACoAAB6CH04BxSgxMjBH-zOng9CSYFaRvZ6eJy4'  
         },
         {
             'id': 2,
@@ -453,7 +455,7 @@ def get_blogs():
             'read_time': '3 min read',
             'tags': ['Python', 'Programming', 'Learning', 'Software Development'],
             'image': '/images/learning-python-generators.jpg',
-            'url': 'https://www.linkedin.com/learning/learning-python-generators'
+            'url': 'https://www.linkedin.com/posts/al-ameen-abdulkareem-1524ba123_just-finished-the-course-learning-python-activity-7232340623310090242-spe2?utm_source=share&utm_medium=member_desktop&rcm=ACoAAB6CH04BxSgxMjBH-zOng9CSYFaRvZ6eJy4'
         },
         {
             'id': 3,
@@ -463,7 +465,7 @@ def get_blogs():
             'read_time': '2 min read',
             'tags': ['AI', 'Machine Learning', 'Community', 'Global AI Hub'],
             'image': '/images/global-ai-core.jpg',
-            'url': 'https://globalaihub.com/'
+            'url': 'https://www.linkedin.com/posts/al-ameen-abdulkareem-1524ba123_artificialintelligence-ai-globalaihub-activity-6899816565219360768-FpsM?utm_source=share&utm_medium=member_desktop&rcm=ACoAAB6CH04BxSgxMjBH-zOng9CSYFaRvZ6eJy4'
         }
     ]
     return jsonify(blogs)
@@ -485,33 +487,37 @@ def contact():
         if not re.match(email_regex, data['email']):
             return jsonify({'error': 'Please enter a valid email address'}), 400
         
-        # Log the message (in production, you'd send an email here)
-        print(f"""
+        # Create and send email
+        msg = Message(
+            subject=f"New Contact Form Submission: {data.get('subject', 'No Subject')}",
+            sender=current_app.config['MAIL_DEFAULT_SENDER'],
+            recipients=['abdulkareemalameen18@gmail.com'],  # Your email address
+            reply_to=data['email']
+        )
+        
+        msg.body = f"""
         New Contact Form Submission:
         ----------------------------
         Name: {data['name']}
         Email: {data['email']}
         Subject: {data.get('subject', 'No Subject')}
+        
         Message:
         {data['message']}
         ----------------------------
-        """)
+        """
         
-        # In a production environment, you would:
-        # 1. Save to a database
-        # 2. Send an email notification
-        # 3. Add rate limiting
-        # 4. Add CAPTCHA verification
+        mail.send(msg)
         
         return jsonify({
             'message': 'Thank you for your message! I will get back to you soon.',
             'status': 'success'
-        }), 200
+        })
         
     except Exception as e:
-        print(f"Error processing contact form: {str(e)}")
+        print(f"Error sending email: {str(e)}")
         return jsonify({
-            'error': 'An error occurred while processing your message. Please try again later.',
+            'error': 'An error occurred while sending your message. Please try again later.',
             'status': 'error'
         }), 500
     
