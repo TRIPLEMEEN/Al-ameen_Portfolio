@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { format } from 'date-fns';
+import { FaLinkedin } from 'react-icons/fa';
 
 interface BlogPostCardProps {
   id: number;
@@ -22,13 +23,21 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({
   tags,
 }) => {
   const formattedDate = format(new Date(date), 'MMM dd, yyyy');
+  const isLinkedInUrl = link?.includes('linkedin.com');
+  const linkText = isLinkedInUrl ? 'View on LinkedIn' : 'Read More';
+
+  // Add this function to ensure proper URL format
+  const getValidUrl = (url: string) => {
+    if (!url) return '#';
+    return url.startsWith('http') ? url : `https://${url}`;
+  };
 
   return (
     <motion.article
-      className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300"
+      className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 flex flex-col h-full"
       whileHover={{ y: -5 }}
     >
-      <div className="relative h-48">
+      <div className="relative h-48 flex-shrink-0">
         <div className="absolute inset-0 bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-500"></div>
         </div>
@@ -52,12 +61,8 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({
           <h2 className="text-xl font-semibold text-white">{title}</h2>
           <p className="text-gray-300 line-clamp-2">{content}</p>
         </div>
-        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
-          <h2 className="text-xl font-semibold text-white">{title}</h2>
-          <p className="text-gray-300 line-clamp-2">{content}</p>
-        </div>
       </div>
-      <div className="p-6">
+      <div className="p-6 flex flex-col flex-grow">
         <p className="text-gray-600 dark:text-gray-400 mb-2">{formattedDate}</p>
         <div className="flex flex-wrap gap-2 mb-4">
           {tags.map((tag) => (
@@ -69,28 +74,30 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({
             </span>
           ))}
         </div>
-        <a
-          href={link}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors"
-        >
-          View on LinkedIn
-          <svg
-            className="w-4 h-4 ml-2"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M14 5l7 7m0 0l-7 7m7-7H3"
-            />
-          </svg>
-        </a>
+        <div className="mt-auto">
+          <a
+            href={getValidUrl(link)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-auto inline-flex items-center text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors"
+            >
+              {linkText}
+              <svg
+                className="w-4 h-4 ml-2"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M14 5l7 7m0 0l-7 7m7-7H3"
+                />
+              </svg>
+            </a>
+        </div>
       </div>
     </motion.article>
   );
