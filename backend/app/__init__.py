@@ -23,9 +23,9 @@ def create_app():
     app.config['MAIL_SERVER'] = 'smtp.gmail.com'
     app.config['MAIL_PORT'] = 587
     app.config['MAIL_USE_TLS'] = True
-    app.config['MAIL_USERNAME'] = abdulkareemalameen18@gmail.com # Your Gmail
-    app.config['MAIL_PASSWORD'] = cvjo-qjcs-lzai-zvov # App password
-    app.config['MAIL_DEFAULT_SENDER'] = abdulkareemalameen18@gmail.com
+    app.config['MAIL_USERNAME'] = 'abdulkareemalameen18@gmail.com' # Your Gmail
+    app.config['MAIL_PASSWORD'] = 'cvjo-qjcs-lzai-zvov' # App password
+    app.config['MAIL_DEFAULT_SENDER'] = 'abdulkareemalameen18@gmail.com'
     
     # Initialize extensions
     mail.init_app(app)
