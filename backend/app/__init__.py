@@ -30,7 +30,7 @@ def create_app():
     # Initialize extensions
     mail.init_app(app)
     # Configuration
-    app.config['SECRET_KEY'] = 'your-secret-key-here'  # Change this in production
+    app.config['SECRET_KEY'] = 'a2ffdf56c6753086c6337725daace3c97e43ace0652b16f4259c4df8600b34f7'  # Change this in production
     
     # Serve static files from the public/images directory using absolute path
     @app.route('/images/<path:path>')
