@@ -72,14 +72,15 @@ export interface Testimonial {
   avatar: string;
 }
 
-export interface Blog {
+export interface BlogPost {
   id: number;
   title: string;
-  content: string;
+  excerpt: string;
   date: string;
   image: string;
   link: string;
   tags: string[];
+  read_time: string;
 }
 
 export interface ProfileData {
@@ -176,8 +177,8 @@ const api = {
   },
 
   // Blogs
-  getBlogs: async (): Promise<Blog[]> => {
-    return fetchData<Blog[]>(`${API_BASE_URL}/blogs`);
+  getBlogs: async (): Promise<BlogPost[]> => {
+    return fetchData<BlogPost[]>(`${API_BASE_URL}/blogs`);
   },
 
   // Contact Form
