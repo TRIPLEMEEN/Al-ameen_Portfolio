@@ -197,12 +197,17 @@ const api = {
         body: JSON.stringify(formData),
       });
 
+      const responseData = await response.json();
+
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Failed to send message');
+        throw new Error(responseData.error || 'Failed to send message');
       }
 
-      return await response.json();
+      // Map the backend's success response to the expected format
+      return {
+        success: responseData.status === 'success',
+        message: responseData.message || 'Message sent successfully!'
+      };
     } catch (error) {
       console.error('Error sending message:', error);
       throw new Error('Failed to send message. Please try again later.');
