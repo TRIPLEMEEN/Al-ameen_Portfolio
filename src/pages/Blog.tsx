@@ -11,7 +11,6 @@ interface BlogPost {
   image: string;
   link: string;
   tags: string[];
-  read_time: string;
 }
 
 const Blog: React.FC = () => {

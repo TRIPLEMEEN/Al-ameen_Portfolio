@@ -445,7 +445,7 @@ def get_blogs():
             'read_time': '5 min read',
             'tags': ['Data Analysis', 'PowerBI', 'Sports Analytics', 'Data Visualization'],
             'image': '/images/nba.jpeg',
-            'url': 'https://www.linkedin.com/posts/al-ameen-abdulkareem-1524ba123_teessideuniversity-activity-7111708179209596928-yndt?utm_source=share&utm_medium=member_desktop&rcm=ACoAAB6CH04BxSgxMjBH-zOng9CSYFaRvZ6eJy4'  
+            'link': 'https://www.linkedin.com/posts/al-ameen-abdulkareem-1524ba123_teessideuniversity-activity-7111708179209596928-yndt?utm_source=share&utm_medium=member_desktop&rcm=ACoAAB6CH04BxSgxMjBH-zOng9CSYFaRvZ6eJy4'  
         },
         {
             'id': 2,
@@ -455,7 +455,7 @@ def get_blogs():
             'read_time': '3 min read',
             'tags': ['Python', 'Programming', 'Learning', 'Software Development'],
             'image': '/images/learning-python-generators.jpg',
-            'url': 'https://www.linkedin.com/posts/al-ameen-abdulkareem-1524ba123_just-finished-the-course-learning-python-activity-7232340623310090242-spe2?utm_source=share&utm_medium=member_desktop&rcm=ACoAAB6CH04BxSgxMjBH-zOng9CSYFaRvZ6eJy4'
+            'link': 'https://www.linkedin.com/posts/al-ameen-abdulkareem-1524ba123_just-finished-the-course-learning-python-activity-7232340623310090242-spe2?utm_source=share&utm_medium=member_desktop&rcm=ACoAAB6CH04BxSgxMjBH-zOng9CSYFaRvZ6eJy4'
         },
         {
             'id': 3,
@@ -465,7 +465,7 @@ def get_blogs():
             'read_time': '2 min read',
             'tags': ['AI', 'Machine Learning', 'Community', 'Global AI Hub'],
             'image': '/images/global-ai-core.jpg',
-            'url': 'https://www.linkedin.com/posts/al-ameen-abdulkareem-1524ba123_artificialintelligence-ai-globalaihub-activity-6899816565219360768-FpsM?utm_source=share&utm_medium=member_desktop&rcm=ACoAAB6CH04BxSgxMjBH-zOng9CSYFaRvZ6eJy4'
+            'link': 'https://www.linkedin.com/posts/al-ameen-abdulkareem-1524ba123_artificialintelligence-ai-globalaihub-activity-6899816565219360768-FpsM?utm_source=share&utm_medium=member_desktop&rcm=ACoAAB6CH04BxSgxMjBH-zOng9CSYFaRvZ6eJy4'
         }
     ]
     return jsonify(blogs)
