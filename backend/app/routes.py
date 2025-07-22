@@ -8,7 +8,6 @@ from flask_mail import Message
 from . import mail
 
 main = Blueprint('main', __name__)
-
 def is_valid_url(url):
     try:
         result = urlparse(url)
@@ -474,24 +473,36 @@ def get_blogs():
 def contact():
     try:
         data = request.get_json()
+        print("Received contact form data:", data)  # Log received data
         
         # Validate required fields
         required_fields = ['name', 'email', 'message']
         for field in required_fields:
             if not data.get(field):
-                return jsonify({'error': f'Missing required field: {field}'}), 400
+                error_msg = f'Missing required field: {field}'
+                print(error_msg)
+                return jsonify({'error': error_msg}), 400
         
         # Validate email format
         import re
         email_regex = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
         if not re.match(email_regex, data['email']):
-            return jsonify({'error': 'Please enter a valid email address'}), 400
+            error_msg = 'Please enter a valid email address'
+            print(error_msg)
+            return jsonify({'error': error_msg}), 400
+        
+        # Debug: Print email configuration
+        print("Email configuration:")
+        print(f"MAIL_SERVER: {current_app.config.get('MAIL_SERVER')}")
+        print(f"MAIL_PORT: {current_app.config.get('MAIL_PORT')}")
+        print(f"MAIL_USERNAME: {current_app.config.get('MAIL_USERNAME') is not None}")
+        print(f"MAIL_PASSWORD: {'*' * 8 if current_app.config.get('MAIL_PASSWORD') else 'None'}")
         
         # Create and send email
         msg = Message(
             subject=f"New Contact Form Submission: {data.get('subject', 'No Subject')}",
             sender=current_app.config['MAIL_DEFAULT_SENDER'],
-            recipients=['abdulkareemalameen18@gmail.com'],  # Your email address
+            recipients=['abdulkareemalameen18@gmail.com'],
             reply_to=data['email']
         )
         
@@ -507,7 +518,9 @@ def contact():
         ----------------------------
         """
         
+        print("Attempting to send email...")
         mail.send(msg)
+        print("Email sent successfully!")
         
         return jsonify({
             'message': 'Thank you for your message! I will get back to you soon.',
@@ -515,7 +528,10 @@ def contact():
         })
         
     except Exception as e:
-        print(f"Error sending email: {str(e)}")
+        error_msg = f"Error sending email: {str(e)}"
+        print(error_msg)
+        import traceback
+        traceback.print_exc()  # This will print the full traceback
         return jsonify({
             'error': 'An error occurred while sending your message. Please try again later.',
             'status': 'error'
