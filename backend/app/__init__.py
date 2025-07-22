@@ -33,9 +33,9 @@ def create_app():
     app.config['MAIL_PORT'] = 587
     app.config['MAIL_USE_TLS'] = True
     app.config['MAIL_USE_SSL'] =False
-    app.config['MAIL_USERNAME'] = os.getenv('MAIL_USERNAME')  # Load from environment
-    app.config['MAIL_PASSWORD'] = os.getenv('MAIL_PASSWORD')  # Load from environment
-    app.config['MAIL_DEFAULT_SENDER'] = os.getenv('MAIL_USERNAME')
+    app.config['MAIL_USERNAME'] = 'abdulkareemalameen18@gmail.com'  # Load from environment
+    app.config['MAIL_PASSWORD'] = 'neio-aogj-ybxh-cksf'  # Load from environment
+    app.config['MAIL_DEFAULT_SENDER'] = 'abdulkareemalameen18@gmail.com'
     
     # Initialize extensions
     mail.init_app(app)
