@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, send_from_directory
 from flask_cors import CORS
+from flask_mail import Mail
 import os
 
 def create_app():
@@ -8,14 +9,26 @@ def create_app():
     r"/*": {
         "origins": [
             "http://localhost:3000",  # For local development
-                "https://al-ameen-portfolio.vercel.app",  # Your Vercel domain
-                "https://al-ameen-portfolio-*.vercel.app"  # All preview deployments
-            ],
+            "http://localhost:4173",  # Vite preview server
+            "[http://127.0.0.1](http://127.0.0.1):4173",  # Alternative localhost
+            "https://al-ameen-portfolio.vercel.app",  # Your Vercel domain
+            "https://al-ameen-portfolio-*.vercel.app"  # All preview deployments
+        ],
             "methods": ["GET", "POST", "OPTIONS"],
             "allow_headers": ["Content-Type", "Authorization"]
     }
 })
     
+    # Email configuration
+    app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+    app.config['MAIL_PORT'] = 587
+    app.config['MAIL_USE_TLS'] = True
+    app.config['MAIL_USERNAME'] = abdulkareemalameen18@gmail.com # Your Gmail
+    app.config['MAIL_PASSWORD'] = cvjo-qjcs-lzai-zvov # App password
+    app.config['MAIL_DEFAULT_SENDER'] = abdulkareemalameen18@gmail.com
+    
+    # Initialize extensions
+    mail.init_app(app)
     # Configuration
     app.config['SECRET_KEY'] = 'your-secret-key-here'  # Change this in production
     
