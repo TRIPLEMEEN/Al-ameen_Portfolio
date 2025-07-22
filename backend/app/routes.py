@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, request, send_from_directory, Response, abort
+from flask import Blueprint, jsonify, request, send_from_directory, Response, current_app
 import os
 import json
 from datetime import datetime
