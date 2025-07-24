@@ -23,10 +23,8 @@
     },
     {
       "src": "/(.*)",
-      "dest": "/",
-      "headers": {
-        "Content-Type": "application/javascript"
-      }
+      "dest": "/index.html"
+      
     }
   ]
 }
