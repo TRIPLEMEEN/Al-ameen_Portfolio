@@ -8,18 +8,23 @@
         "distDir": "dist",
         "outputDirectory": "dist"
       }
-    },
-    {
-      "src": "backend/app/__init__.py",
-      "use": "@vercel/python",
-      "config": {
-        "maxDuration": 300
-      }
     }
   ],
   "routes": [
-    { "src": "/api/(.*)", "dest": "/api/$1" },
-    { "src": "/(.*)", "dest": "/" }
+    {
+      "src": "/api/(.*)",
+      "dest": "https://al-ameen-portfolio.onrender.com/api/$1",
+      "headers": {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization"
+      }
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html",
+      "status": 200
+    }
   ],
   "env": {
     "VITE_API_URL": "https://al-ameen-portfolio.onrender.com"
