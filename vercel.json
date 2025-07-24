@@ -2,6 +2,14 @@
   "version": 2,
   "builds": [
     {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist",
+        "outputDirectory": "dist"
+      }
+    },
+    {
       "src": "backend/app/__init__.py",
       "use": "@vercel/python",
       "config": {
@@ -10,23 +18,8 @@
     }
   ],
   "routes": [
-    { "handle": "filesystem" },
-    {
-      "src": "/api/(.*)",
-      "dest": "backend/app/__init__.py",
-      "methods": ["GET", "POST", "OPTIONS"],
-      "headers": {
-        "Access-Control-Allow-Credentials": "true",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET,OPTIONS,POST",
-        "Access-Control-Allow-Headers": "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version"
-      },
-      "status": 308
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/"
-    }
+    { "src": "/api/(.*)", "dest": "/api/$1" },
+    { "src": "/(.*)", "dest": "/" }
   ],
   "env": {
     "VITE_API_URL": "https://al-ameen-portfolio.onrender.com"
