@@ -25,6 +25,7 @@
     "format": "prettier --write .",
     "type-check": "tsc --noEmit",
     "check": "tsc --noEmit",
+    "vercel-build": "npm run build",
     "build:full": "npm run check && npm run build"
   },
   "dependencies": {
