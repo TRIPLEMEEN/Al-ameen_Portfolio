@@ -18,12 +18,16 @@ load_dotenv()
 def create_app():
     app = Flask(__name__, static_folder='../static')
     CORS(app, resources={
-        r"/*": {
-            "origins": ["http://localhost:3000", "https://yourdomain.com"],
-            "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-            "allow_headers": ["Content-Type"]
-        }
-    })
+    r"/*": {
+        "origins": [
+            "http://localhost:3000",
+            "https://your-vercel-app.vercel.app",
+            "https://*.vercel.app"
+        ],
+        "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+        "allow_headers": ["Content-Type", "Authorization"]
+    }
+})
     
     # Configuration
     app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'dev-key-123')

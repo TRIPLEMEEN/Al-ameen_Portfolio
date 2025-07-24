@@ -2,11 +2,10 @@
   "version": 2,
   "builds": [
     {
-      "src": "package.json",
-      "use": "@vercel/static-build",
+      "src": "backend/app/__init__.py",
+      "use": "@vercel/python",
       "config": {
-        "distDir": "dist",
-        "outputDirectory": "dist"  
+        "maxDuration": 300
       }
     }
   ],
@@ -14,7 +13,7 @@
     { "handle": "filesystem" },
     {
       "src": "/api/(.*)",
-      "dest": "https://al-ameen-portfolio.onrender.com/api/$1",
+      "dest": "backend/app/__init__.py",
       "methods": ["GET", "POST", "OPTIONS"],
       "headers": {
         "Access-Control-Allow-Credentials": "true",
@@ -26,7 +25,7 @@
     },
     {
       "src": "/(.*)",
-      "dest": "/index.html"
+      "dest": "/"
     }
   ],
   "env": {
