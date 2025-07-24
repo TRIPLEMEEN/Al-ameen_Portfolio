@@ -1,11 +1,14 @@
 from flask import Blueprint, jsonify, request, send_from_directory, Response, current_app
-import os
+import re
 import json
 from datetime import datetime
 import requests
-from urllib.parse import urlparse, unquote
+from urllib.parse import urlparse
 from flask_mail import Message
-from . import mail
+from . import mail, db
+from .models import ContactMessage
+
+
 
 main = Blueprint('main', __name__)
 def is_valid_url(url):
@@ -484,56 +487,111 @@ def contact():
                 return jsonify({'error': error_msg}), 400
         
         # Validate email format
-        import re
         email_regex = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
         if not re.match(email_regex, data['email']):
             error_msg = 'Please enter a valid email address'
             print(error_msg)
-            return jsonify({'error': error_msg}), 400
+            return jsonify({'error': error_msg, 'status': 'error'}), 400
         
-        # Debug: Print email configuration
-        print("Email configuration:")
-        print(f"MAIL_SERVER: {current_app.config.get('MAIL_SERVER')}")
-        print(f"MAIL_PORT: {current_app.config.get('MAIL_PORT')}")
-        print(f"MAIL_USERNAME: {current_app.config.get('MAIL_USERNAME') is not None}")
-        print(f"MAIL_PASSWORD: {'*' * 8 if current_app.config.get('MAIL_PASSWORD') else 'None'}")
+        # Create and save message to database
+        try:
+            message = ContactMessage(
+                name=data['name'],
+                email=data['email'],
+                subject=data.get('subject', 'No Subject'),
+                message=data['message']
+            )
+            db.session.add(message)
+            db.session.commit()
+            print(f"Message saved to database with ID: {message.id}")
+        except Exception as db_error:
+            db.session.rollback()
+            print(f"Database error: {str(db_error)}")
+            return jsonify({
+                'error': 'Failed to save your message. Please try again.',
+                'status': 'error'
+            }), 500
         
-        # Create and send email
-        msg = Message(
-            subject=f"New Contact Form Submission: {data.get('subject', 'No Subject')}",
-            sender=current_app.config['MAIL_DEFAULT_SENDER'],
-            recipients=['abdulkareemalameen18@gmail.com'],
-            reply_to=data['email']
-        )
-        
-        msg.body = f"""
-        New Contact Form Submission:
-        ----------------------------
-        Name: {data['name']}
-        Email: {data['email']}
-        Subject: {data.get('subject', 'No Subject')}
-        
-        Message:
-        {data['message']}
-        ----------------------------
-        """
-        
-        print("Attempting to send email...")
-        mail.send(msg)
-        print("Email sent successfully!")
-        
-        return jsonify({
-            'message': 'Thank you for your message! I will get back to you soon.',
-            'status': 'success'
-        })
-        
+        # Try to send email notification
+        try:
+            msg = Message(
+                subject=f"New Contact Form Submission: {data.get('subject', 'No Subject')}",
+                sender=current_app.config['MAIL_DEFAULT_SENDER'],
+                recipients=[current_app.config['MAIL_DEFAULT_SENDER']],
+                reply_to=data['email']
+            )
+            
+            msg.body = f"""
+            New Contact Form Submission:
+            ----------------------------
+            Name: {data['name']}
+            Email: {data['email']}
+            Subject: {data.get('subject', 'No Subject')}
+            
+            Message:
+            {data['message']}
+            ----------------------------
+            """
+            
+            print("Attempting to send email...")
+            mail.send(msg)
+            print("Email sent successfully!")
+            
+            return jsonify({
+                'message': 'Thank you for your message! I will get back to you soon.',
+                'status': 'success'
+            })
+            
+        except Exception as email_error:
+            # Email failed but message is saved in database
+            print(f"Email sending failed: {str(email_error)}")
+            return jsonify({
+                'message': 'Your message has been received. We will get back to you soon!',
+                'status': 'success',
+                'note': 'Email notification could not be sent, but your message was saved.'
+            })
+            
     except Exception as e:
-        error_msg = f"Error sending email: {str(e)}"
+        error_msg = f"Unexpected error: {str(e)}"
         print(error_msg)
         import traceback
-        traceback.print_exc()  # This will print the full traceback
+        traceback.print_exc()
         return jsonify({
-            'error': 'An error occurred while sending your message. Please try again later.',
+            'error': 'An unexpected error occurred. Please try again later.',
             'status': 'error'
         }), 500
-    
+
+@main.route('/api/contact-messages', methods=['GET'])
+def get_contact_messages():
+    try:
+        # Get query parameters for pagination
+        page = request.args.get('page', 1, type=int)
+        per_page = request.args.get('per_page', 10, type=int)
+        
+        # Query messages with pagination
+        messages = ContactMessage.query.order_by(
+            ContactMessage.created_at.desc()
+        ).paginate(page=page, per_page=per_page, error_out=False)
+        
+        # Convert messages to list of dicts
+        messages_data = [message.to_dict() for message in messages.items]
+        
+        # Prepare response with pagination info
+        response = {
+            'messages': messages_data,
+            'total': messages.total,
+            'pages': messages.pages,
+            'current_page': messages.page,
+            'per_page': messages.per_page,
+            'has_next': messages.has_next,
+            'has_prev': messages.has_prev
+        }
+        
+        return jsonify(response)
+        
+    except Exception as e:
+        current_app.logger.error(f"Error fetching messages: {str(e)}")
+        return jsonify({
+            'error': 'Failed to fetch messages',
+            'status': 'error'
+        }), 500

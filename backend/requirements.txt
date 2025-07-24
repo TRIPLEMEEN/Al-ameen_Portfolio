@@ -5,6 +5,8 @@ click==8.2.1
 Flask==3.0.0
 Flask-Cors==4.0.0
 Flask-Mail==0.10.0
+Flask-SQLAlchemy==3.0.3
+Flask-Migrate==4.0.5
 idna==3.10
 itsdangerous==2.2.0
 Jinja2==3.1.6

@@ -37,7 +37,7 @@ const Navbar = () => {
   return (
     <header
       className={`fixed w-full z-50 transition-all duration-300 ${
-        scrolled ? 'bg-white/80 dark:bg-gray-900/80 backdrop-blur-md shadow-md' : 'bg-transparent'
+        scrolled || isOpen ? 'bg-white/80 dark:bg-gray-900/80 backdrop-blur-md shadow-md' : 'bg-transparent'
       }`}
     >
       <nav className="container mx-auto px-4 py-4">
@@ -92,14 +92,14 @@ const Navbar = () => {
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <div className="md:hidden mt-4 pb-4">
-            <div className="flex flex-col space-y-2">
+          <div className="md:hidden mt-4 pb-4 bg-white dark:bg-gray-900 rounded-lg shadow-lg">
+            <div className="flex flex-col space-y-2 p-2">
               {navLinks.map((link) => (
                 <Link
                   key={link.path}
                   to={link.path}
                   onClick={() => setIsOpen(false)}
-                  className={`px-4 py-2 rounded-md text-base font-medium ${
+                  className={`px-4 py-3 rounded-md text-base font-medium ${
                     location.pathname === link.path
                       ? 'bg-indigo-50 text-indigo-700 dark:bg-gray-800 dark:text-indigo-400'
                       : 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800'
