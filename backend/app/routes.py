@@ -98,6 +98,13 @@ def get_profile():
                 'company': 'Outwood Academy Riverside',
                 'phone': '07929 143780',
                 'email': 'w.oseland@riverside.outwood.com'
+            },
+            {
+                'name': 'John Babatola',
+                'position': 'Site Reliability Engineer',
+                'company': 'Google',
+                'phone': '+44 7478 812026',
+                'email': 'johnbabatola@gmail.com'
             }
         ]
     }
@@ -213,8 +220,8 @@ def get_experience():
         {
             'id': 2,
             'company': 'Connex Education',
-            'position': 'Teacher (Supply/Cover Supervisor)',
-            'period': 'May 2023 - January 2025',
+            'position': 'Freelancer (Software Engineer)',
+            'period': 'October 2024 - January 2025',
             'location': 'United Kingdom',
             'responsibilities': [
                 'Delivered clear and engaging explanations of key concepts in Python, computing, and mathematics',
@@ -225,7 +232,21 @@ def get_experience():
             ]
         },
         {
-            'id': 3,
+        'id': 3,
+            'company': 'Upwork',
+            'position': 'Freelancer (Software Engineer)',
+            'period': 'May 2023 - October  2024',
+            'location': 'Remote',
+            'responsibilities': [
+                'Developed ML-integrated applications using Python, FastAPI, and cloud services (AWS/Azure).',
+                'Created dashboards and pipelines using SQL, Pandas, and Power BI, empowering clients with real-time insights.',
+                'Built a data validation/reporting tool for a FinTech client—automating compliance and cutting manual effort by 60%.',
+                'Designed RAG pipelines and integrated LLMs for summarization and classification tasks using Hugging Face/OpenAI.',
+                'Maintained agile practices, test-driven development, and collaborated with cross-functional teams (PMs, UI/UX).'
+            ]
+        },
+        {
+            'id': 4,
             'company': 'Impact Fundry',
             'position': 'Business Analyst (Data Science)',
             'period': 'October 2022 - May 2023',
@@ -240,7 +261,7 @@ def get_experience():
             ]
         },
         {
-            'id': 4,
+            'id': 5,
             'company': 'Turing',
             'position': 'Data Analyst',
             'period': 'March 2022 - September 2022',
@@ -255,7 +276,7 @@ def get_experience():
             ]
         },
         {
-            'id': 5,
+            'id': 6,
             'company': 'Law Pavilion',
             'position': 'Machine Learning Engineer',
             'period': 'December 2020 - February 2022',
@@ -270,7 +291,7 @@ def get_experience():
             ]
         },
         {
-            'id': 6,
+            'id': 7,
             'company': 'PwC',
             'position': 'Software Engineer',
             'period': 'July 2020 - December 2020',
@@ -285,7 +306,7 @@ def get_experience():
             ]
         },
         {
-            'id': 7,
+            'id': 8,
             'company': 'Fundall',
             'position': 'Artificial Intelligence Engineer',
             'period': 'April 2020 - July 2020',
