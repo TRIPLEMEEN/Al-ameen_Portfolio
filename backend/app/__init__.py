@@ -17,17 +17,24 @@ load_dotenv()
 
 def create_app():
     app = Flask(__name__, static_folder='../static')
+    
+    # CORS Configuration
     CORS(app, resources={
-    r"/*": {
-        "origins": [
-            "http://localhost:3000",
-            "https://al-ameen-portfolio.vercel.app",
-        ],
-        "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-        "allow_headers": ["Content-Type", "Authorization"],
-        "supports_credentials": True
-    }
-})
+        r"/*": {
+            "origins": [
+                "http://localhost:3000",  # For local development
+                "http://localhost:5173",  # Vite default dev server
+                "https://al-ameen-portfolio.vercel.app",
+                "https://al-ameen-portfolio-*.vercel.app",  # For all preview deployments
+                "https://al-ameen-portfolio-git-*-triplemeen.vercel.app"  # For PR previews
+            ],
+            "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+            "allow_headers": ["Content-Type", "Authorization", "X-Requested-With"],
+            "expose_headers": ["Content-Range", "X-Total-Count"],
+            "supports_credentials": True,
+            "max_age": 600  # How long the results of a preflight request can be cached
+        }
+    })
     
     # Configuration
     app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'dev-key-123')
