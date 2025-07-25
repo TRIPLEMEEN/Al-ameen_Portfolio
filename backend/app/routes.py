@@ -566,7 +566,7 @@ def get_contact_messages():
     try:
         # Get query parameters for pagination
         page = request.args.get('page', 1, type=int)
-        per_page = request.args.get('per_page', 10, type=int)
+        per_page = request.args.get('pe§        r_page', 10, type=int)
         
         # Query messages with pagination
         messages = ContactMessage.query.order_by(
