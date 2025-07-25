@@ -5,8 +5,7 @@
       "src": "package.json",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "dist",
-        "outputDirectory": "dist"
+        "distDir": "dist"
       }
     }
   ],
@@ -14,24 +13,23 @@
     {
       "src": "/api/(.*)",
       "dest": "https://al-ameen-portfolio.onrender.com/api/$1",
-      "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
       "headers": {
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-        "Access-Control-Allow-Headers": "Content-Type, Authorization",
-        "Cache-Control": "no-cache, no-store, must-revalidate,public, max-age=31536000, immutable",
-        "Pragma": "no-cache",
-        "Expires": "0"
+        "Access-Control-Allow-Headers": "Content-Type, Authorization"
+      }
+    },
+    {
+      "src": "/(.*\\.(js|css|json|png|jpg|jpeg|gif|ico|svg))",
+      "headers": {
+        "Cache-Control": "public, max-age=31536000, immutable"
       }
     },
     {
       "src": "/(.*)",
       "dest": "/index.html",
       "headers": {
-        "Content-Type": "text/javascript; charset=UTF-8",
-        "Cache-Control": "no-cache, no-store, must-revalidate",
-        "Pragma": "no-cache",
-        "Expires": "0"
+        "Content-Type": "text/html; charset=UTF-8"
       }
     }
   ]
