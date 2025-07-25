@@ -13,6 +13,7 @@
     {
       "src": "/api/(.*)",
       "dest": "https://al-ameen-portfolio.onrender.com/api/$1",
+      "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
       "headers": {
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
