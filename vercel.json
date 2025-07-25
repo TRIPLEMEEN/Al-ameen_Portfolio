@@ -28,6 +28,7 @@
       "src": "/(.*)",
       "dest": "/index.html",
       "headers": {
+        "Content-Type": "application/javascript",
         "Cache-Control": "no-cache, no-store, must-revalidate",
         "Pragma": "no-cache",
         "Expires": "0"
