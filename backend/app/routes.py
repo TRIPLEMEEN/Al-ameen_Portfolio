@@ -53,7 +53,7 @@ def load_json_data(filename):
 def download_resume():
     return send_from_directory(
         current_app.static_folder,
-        'al-ameen_01_resume.pdf',
+        'static/al-ameen_01_resume.pdf',
         as_attachment=True,
         download_name='AL-AMEEN_ABDULKAREEM_RESUME.pdf'  # This will be the filename when downloaded
     )
@@ -82,7 +82,7 @@ def get_profile():
             'github': 'https://github.com/triplemeen',
             'twitter': ''
         },
-        'resume': '/resume.pdf',
+        'resume': '/static/al-ameen_01_resume.pdf',
         'interests': ['Cooking', 'Basketball', 'Video making and editing'],
         'referees': [
             {
@@ -220,7 +220,7 @@ def get_experience():
         {
             'id': 2,
             'company': 'Connex Education',
-            'position': 'Freelancer (Software Engineer)',
+            'position': 'Teacher(Supply/Cover Supervisor) ',
             'period': 'October 2024 - January 2025',
             'location': 'United Kingdom',
             'responsibilities': [
@@ -453,7 +453,19 @@ def get_testimonials():
             'rating': 5,
             'phone': '07929 143780',
             'email': 'w.oseland@riverside.outwood.com'
-        }
+        },
+         {
+                'id': 3,
+                'name': 'John Babatola',
+                'position': 'Site Reliability Engineer',
+                'company': 'Google',
+                'content': 'Professional and results-driven individual with exceptional technical skills. Demonstrates strong problem-solving abilities and a commitment to excellence in all tasks.',
+                'avatar': '/images/william-oseland.jpg',
+                'date': 'July 2025',
+                'rating': 5,
+                'phone': '+44 7478 812026',
+                'email': 'johnbabatola@gmail.com'
+            }
     ]
     return jsonify(testimonials)
 
