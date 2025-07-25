@@ -1,8 +1,9 @@
-// Get the API URL from environment variables or use the default local development URL
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://al-ameen-portfolio.onrender.com/';
+
+// Proposed implementation
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://al-ameen-portfolio.onrender.com';
 
 // Helper function to handle fetch requests with better error handling
-async function fetchData<T>(url: string, options?: RequestInit): Promise<T> {
+export async function fetchData<T>(url: string, options?: RequestInit): Promise<T> {
   try {
     const response = await fetch(url, {
       ...options,
@@ -25,6 +26,7 @@ async function fetchData<T>(url: string, options?: RequestInit): Promise<T> {
     throw error;
   }
 }
+
 
 export interface Project {
   id: number;
