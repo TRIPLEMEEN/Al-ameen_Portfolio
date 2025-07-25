@@ -21,11 +21,11 @@ def create_app():
     r"/*": {
         "origins": [
             "http://localhost:3000",
-            "https://your-vercel-app.vercel.app",
-            "https://*.vercel.app"
+            "https://al-ameen-portfolio.vercel.app",
         ],
         "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-        "allow_headers": ["Content-Type", "Authorization"]
+        "allow_headers": ["Content-Type", "Authorization"],
+        "supports_credentials": True
     }
 })
     
