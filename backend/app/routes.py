@@ -52,27 +52,45 @@ def load_json_data(filename):
 @main.route('/download-resume')
 def download_resume():
     import os
-    # Use absolute path to the static folder
-    static_folder = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'static'))
-    file_path = os.path.join(static_folder, 'al-ameen_01_resume.pdf')
     
-    print(f"Static folder: {static_folder}")
-    print(f"Looking for file at: {file_path}")
-    print(f"File exists: {os.path.exists(file_path)}")
+    # Possible locations for the static folder
+    possible_static_folders = [
+        # Local development path
+        os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'static')),
+        # Render production path
+        os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'static')),
+        # Absolute path as a last resort
+        '/opt/render/project/src/static'
+    ]
     
-    if not os.path.exists(file_path):
-        return f"File not found at: {file_path}", 404
-        
+    filename = 'al-ameen_01_resume.pdf'
+    file_path = None
+    
+    # Try to find the file in any of the possible locations
+    for folder in possible_static_folders:
+        path = os.path.join(folder, filename)
+        if os.path.exists(path):
+            file_path = path
+            static_folder = folder
+            break
+    
+    if not file_path or not os.path.exists(file_path):
+        error_msg = f"Resume file not found. Tried the following locations:\n"
+        error_msg += "\n".join([f"- {os.path.join(folder, filename)}" for folder in possible_static_folders])
+        return error_msg, 404
+    
+    print(f"Serving file from: {file_path}")
+    
     try:
         return send_from_directory(
             static_folder,
-            'al-ameen_01_resume.pdf',
+            filename,
             as_attachment=True,
             download_name='AL-AMEEN_ABDULKAREEM_RESUME.pdf'
         )
     except Exception as e:
         print(f"Error sending file: {str(e)}")
-        return str(e), 500
+        return f"Error serving file: {str(e)}", 500
 
 @main.route('/')
 def home():
