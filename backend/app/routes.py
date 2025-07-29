@@ -53,7 +53,7 @@ def load_json_data(filename):
 def download_resume():
     return send_from_directory(
         current_app.static_folder,
-        'static/al-ameen_01_resume.pdf',
+        'app/static/al-ameen_01_resume.pdf',
         as_attachment=True,
         download_name='AL-AMEEN_ABDULKAREEM_RESUME.pdf'  # This will be the filename when downloaded
     )
