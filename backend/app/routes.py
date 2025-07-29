@@ -51,11 +51,12 @@ def load_json_data(filename):
         return []
 @main.route('/download-resume')
 def download_resume():
+    # The static_folder already points to the 'static' directory, so we just need the filename
     return send_from_directory(
         current_app.static_folder,
-        'app/static/al-ameen_01_resume.pdf',
+        'al-ameen_01_resume.pdf',
         as_attachment=True,
-        download_name='AL-AMEEN_ABDULKAREEM_RESUME.pdf'  # This will be the filename when downloaded
+        download_name='AL-AMEEN_ABDULKAREEM_RESUME.pdf'
     )
 
 @main.route('/')
