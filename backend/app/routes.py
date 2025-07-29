@@ -51,13 +51,28 @@ def load_json_data(filename):
         return []
 @main.route('/download-resume')
 def download_resume():
-    # The static_folder already points to the 'static' directory, so we just need the filename
-    return send_from_directory(
-        current_app.static_folder,
-        'al-ameen_01_resume.pdf',
-        as_attachment=True,
-        download_name='AL-AMEEN_ABDULKAREEM_RESUME.pdf'
-    )
+    import os
+    # Use absolute path to the static folder
+    static_folder = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'static'))
+    file_path = os.path.join(static_folder, 'al-ameen_01_resume.pdf')
+    
+    print(f"Static folder: {static_folder}")
+    print(f"Looking for file at: {file_path}")
+    print(f"File exists: {os.path.exists(file_path)}")
+    
+    if not os.path.exists(file_path):
+        return f"File not found at: {file_path}", 404
+        
+    try:
+        return send_from_directory(
+            static_folder,
+            'al-ameen_01_resume.pdf',
+            as_attachment=True,
+            download_name='AL-AMEEN_ABDULKAREEM_RESUME.pdf'
+        )
+    except Exception as e:
+        print(f"Error sending file: {str(e)}")
+        return str(e), 500
 
 @main.route('/')
 def home():
