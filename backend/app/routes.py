@@ -63,7 +63,7 @@ def download_resume():
         '/opt/render/project/src/static'
     ]
     
-    filename = 'al-ameen_01_resume.pdf'
+    filename = 'al_ameen_resume_01.pdf'
     file_path = None
     
     # Try to find the file in any of the possible locations
